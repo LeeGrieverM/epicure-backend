@@ -6,7 +6,7 @@ const ChefShcema: Schema = new Schema({
   image: { type: String, required: true },
   description: { type: String, required: true },
   restaurants: [
-    { type: Schema.Types.ObjectId, ref: "Restaurant", required: true },
+    { type: Schema.Types.ObjectId, ref: "Restaurant"},
   ],
   isChefOfTheWeek: { type: Boolean, required: true, default: false },
 });

@@ -7,12 +7,6 @@ const DishShcema: Schema = new Schema({
   ingredients: [{ type: String, required: true }],
   tags: [{ type: String, required: false }],
   price: { type: Number, required: true },
-  // restaurant: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Restaurant",
-  //   required: true,
-  // },
- // add status attribute 
 });
 
 export default mongoose.model<IDish>("Dish", DishShcema);

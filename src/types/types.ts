@@ -2,7 +2,7 @@ export interface IChef extends Document {
   name: string;
   image: string;
   description: string;
-  restaurants: IRestaurant[];
+  restaurants?: IRestaurant[];
   isChefOfTheWeek: boolean;
 }
 

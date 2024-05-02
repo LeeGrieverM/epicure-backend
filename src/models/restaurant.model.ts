@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import {IRestaurant} from '../types/types';
+import { IRestaurant } from "../types/types";
 
 const RestaurantShcema: Schema = new mongoose.Schema({
   name: { type: String, required: true },

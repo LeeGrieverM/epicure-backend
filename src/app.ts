@@ -7,6 +7,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
 app.use(express.json());
 
@@ -19,7 +20,7 @@ app.use("/api", apiRouter);
 
 mongoose
   .connect(
-    "mongodb+srv://LeeGriever:Lee246135@epicure-backend.7tyyp19.mongodb.net/",
+    MONGODB_URI,
     {dbName: 'EPICURE'}
   )
   .then(() => {
