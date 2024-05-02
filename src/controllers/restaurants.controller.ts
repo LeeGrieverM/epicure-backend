@@ -23,9 +23,7 @@ export const getAllRestaurants = async (req: Request, res: Response) => {
 
   export const createRestaurant = async (req: Request, res: Response) => {
     try {
-      console.log("in create restaurant");
       const newRestaurant = await handleCreateRestaurant(req.body);
-      console.log("in create restaurant, new restaurant: ", newRestaurant);
       res.status(201).json(newRestaurant);
     } catch (error) {
       res.status(500).json({ message: "ERROR" });

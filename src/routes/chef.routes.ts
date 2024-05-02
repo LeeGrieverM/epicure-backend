@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { getAllChefs, createChef, getChef } from "../controllers/chef.controller";
+import { getAllChefs, createChef, getChef, getChefOfTheWeek } from "../controllers/chef.controller";
 
 const chefRouter = Router();
 
 chefRouter.get("/", getAllChefs);
-chefRouter.post("/", createChef);
+chefRouter.get("/chefOfTheWeek", getChefOfTheWeek);
 chefRouter.get("/:id", getChef);
-chefRouter.get("/chefOfTheWeek", );
+chefRouter.post("/", createChef);
 
 
 

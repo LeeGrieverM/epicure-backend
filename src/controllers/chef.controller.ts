@@ -8,7 +8,6 @@ import {
 
 export const getAllChefs = async (req: Request, res: Response) => {
   try {
-    console.log("in getAllChefs");
     const chefs = await handleGetAllChefs();
     res.json(chefs);
   } catch (err) {
