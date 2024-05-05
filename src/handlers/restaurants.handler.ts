@@ -1,12 +1,36 @@
 import Restaurant from "../models/restaurant.model";
 import Chef from "../models/chef.model";
 import { IRestaurant } from "../types/types";
+import { Aggregate, Document } from "mongoose";
 
-export async function handleGetAllRestaurants() {
-  const restaurants = await Restaurant.find()
-    .populate("chef")
-    .populate("dishes");
-  return restaurants;
+export async function handleGetAllRestaurants(
+  page: number = 1,
+  limit: number = 10
+) {
+  const skip = (page - 1) * limit;
+
+  const aggregation: Aggregate<Document[]> = Restaurant.aggregate([
+    { $skip: skip },
+    { $limit: limit },
+    {
+      $lookup: {
+        from: "chefs",
+        localField: "chef",
+        foreignField: "_id",
+        as: "chef",
+      },
+    },
+    {
+      $lookup: {
+        from: "dishes",
+        localField: "dishes",
+        foreignField: "_id",
+        as: "dishes",
+      },
+    },
+  ]);
+
+  return aggregation.exec();
 }
 
 export async function handleGetRestaurant(restaurantId: string) {
@@ -47,14 +71,20 @@ export async function handleDeleteRestaurant(restaurantId: string) {
   }
   chef.restaurants = chef.restaurants || [];
   // Remove the restaurant from the chef's list of restaurants
-  chef.restaurants = chef.restaurants.filter(id => id.toString() !== restaurantId);
+  chef.restaurants = chef.restaurants.filter(
+    (id) => id.toString() !== restaurantId
+  );
   await chef.save();
 
   restaurant.isActive = false;
+  await restaurant.save();
   return restaurant;
 }
 
-export async function handleUpdateRestaurant(restaurantId: string, update: Partial<IRestaurant>) {
+export async function handleUpdateRestaurant(
+  restaurantId: string,
+  update: Partial<IRestaurant>
+) {
   const restaurant = await Restaurant.findById(restaurantId);
   if (!restaurant) {
     throw new Error("Restaurant not found");
@@ -64,4 +94,3 @@ export async function handleUpdateRestaurant(restaurantId: string, update: Parti
   await restaurant.save();
   return restaurant;
 }
-

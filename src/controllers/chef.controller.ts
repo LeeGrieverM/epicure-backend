@@ -3,10 +3,12 @@ import * as chefHandler from "../handlers/chef.handler";
 
 export const getAllChefs = async (req: Request, res: Response) => {
   try {
-    const chefs = await chefHandler.handleGetAllChefs();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 3;
+    const chefs = await chefHandler.handleGetAllChefs(page, limit);
     res.json(chefs);
-  } catch (err) {
-    res.status(500).json({ message: "ERROR" });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching chefs" });
   }
 };
 

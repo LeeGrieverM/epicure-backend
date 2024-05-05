@@ -1,9 +1,16 @@
 import Dish from "../models/dish.model";
 import { IDish } from "../types/types";
+import { Aggregate, Document } from 'mongoose';
 
-export async function handleGetAllDishes() {
-  const dishes = await Dish.find();
-  return dishes;
+export async function handleGetAllDishes(page: number = 1, limit: number = 10) {
+  const skip = (page - 1) * limit;
+
+  const aggregation: Aggregate<Document[]> = Dish.aggregate([
+    { $skip: skip },
+    { $limit: limit }
+  ]);
+
+  return aggregation.exec();
 }
 
 export async function handleGetDish(dishId: string) {
@@ -23,6 +30,7 @@ export async function handleDeleteDish(dishId: string) {
     throw new Error("Dish not found");
   }
   dish.isActive = false;
+  await dish.save(); 
   return dish;
 }
 

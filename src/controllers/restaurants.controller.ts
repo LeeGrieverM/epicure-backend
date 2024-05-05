@@ -2,10 +2,15 @@ import { Request, Response } from "express";
 import * as restaurantHandler from "../handlers/restaurants.handler";
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
-    const restaurants = await restaurantHandler.handleGetAllRestaurants();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const restaurants = await restaurantHandler.handleGetAllRestaurants(
+      page,
+      limit
+    );
     res.json(restaurants);
-  } catch (err) {
-    res.status(500).json({ message: "ERROR" });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching restaurants" });
   }
 };
 
@@ -50,7 +55,10 @@ export const deleteRestaurant = async (req: Request, res: Response) => {
 
 export const updateRestaurant = async (req: Request, res: Response) => {
   try {
-    const updatedRestaurant = await restaurantHandler.handleUpdateRestaurant(req.params.id, req.body);
+    const updatedRestaurant = await restaurantHandler.handleUpdateRestaurant(
+      req.params.id,
+      req.body
+    );
     res.json(updatedRestaurant);
   } catch (error) {
     res.status(500).json({ message: "Error updating restaurant" });

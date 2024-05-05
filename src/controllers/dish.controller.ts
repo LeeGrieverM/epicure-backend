@@ -3,10 +3,12 @@ import * as dishHandler from "../handlers/dish.handler";
 
 export const getAllDishes = async (req: Request, res: Response) => {
   try {
-    const dishes = await dishHandler.handleGetAllDishes();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const dishes = await dishHandler.handleGetAllDishes(page, limit);
     res.json(dishes);
-  } catch (err) {
-    res.status(500).json({ message: "ERROR" });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching dishes" });
   }
 };
 
@@ -45,7 +47,10 @@ export const deleteDish = async (req: Request, res: Response) => {
 
 export const updateDish = async (req: Request, res: Response) => {
   try {
-    const updateDish = await dishHandler.handleUpdateDish(req.params.id, req.body);
+    const updateDish = await dishHandler.handleUpdateDish(
+      req.params.id,
+      req.body
+    );
     res.json(updateDish);
   } catch (error) {
     res.status(500).json({ message: "Error updating Dish" });
