@@ -1,13 +1,12 @@
-
 import { Router } from "express";
-import { createDish, getAllDishes, getDish } from "../controllers/dish.controller";
-
+import * as dishController from "../controllers/dish.controller";
 
 const dishRouter = Router();
 
-dishRouter.get("/", getAllDishes);
-dishRouter.get("/:id", getDish);
-dishRouter.post("/", createDish);
-
+dishRouter.get("/", dishController.getAllDishes);
+dishRouter.get("/:id", dishController.getDish);
+dishRouter.post("/", dishController.createDish);
+dishRouter.put("/:id", dishController.updateDish);
+dishRouter.delete("/:id", dishController.deleteDish);
 
 export default dishRouter;

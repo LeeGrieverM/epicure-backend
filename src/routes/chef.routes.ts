@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { getAllChefs, createChef, getChef, getChefOfTheWeek } from "../controllers/chef.controller";
+import * as chefController from "../controllers/chef.controller";
 
 const chefRouter = Router();
 
-chefRouter.get("/", getAllChefs);
-chefRouter.get("/chefOfTheWeek", getChefOfTheWeek);
-chefRouter.get("/:id", getChef);
-chefRouter.post("/", createChef);
-
+chefRouter.get("/", chefController.getAllChefs);
+chefRouter.get("/chefOfTheWeek", chefController.getChefOfTheWeek);
+chefRouter.get("/:id", chefController.getChef);
+chefRouter.post("/", chefController.createChef);
+chefRouter.put("/:id", chefController.updateChef);
+chefRouter.delete("/:id", chefController.deleteChef);
 
 
 export default chefRouter;

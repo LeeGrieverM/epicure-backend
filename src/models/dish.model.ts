@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import {IDish} from '../types/types';
+import { IDish } from "../types/types";
 
 const DishShcema: Schema = new Schema({
   name: { type: String, required: true },
@@ -7,6 +7,7 @@ const DishShcema: Schema = new Schema({
   ingredients: [{ type: String, required: true }],
   tags: [{ type: String, required: false }],
   price: { type: Number, required: true },
+  isActive: { type: Boolean, default: true },
 });
 
 export default mongoose.model<IDish>("Dish", DishShcema);

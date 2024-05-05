@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createRestaurant, getAllRestaurants, getRestaurant } from "../controllers/restaurants.controller";
-
+import * as restaurantController from "../controllers/restaurants.controller";
 const restaurantRouter = Router();
 
-restaurantRouter.get("/", getAllRestaurants);
-restaurantRouter.get("/:id", getRestaurant);
-restaurantRouter.post("/", createRestaurant);
-
+restaurantRouter.get("/", restaurantController.getAllRestaurants);
+restaurantRouter.get("/:id", restaurantController.getRestaurant);
+restaurantRouter.post("/", restaurantController.createRestaurant);
+restaurantRouter.put("/:id", restaurantController.updateRestaurant);
+restaurantRouter.delete("/:id", restaurantController.deleteRestaurant);
 
 export default restaurantRouter;

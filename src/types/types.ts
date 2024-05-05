@@ -4,6 +4,7 @@ export interface IChef extends Document {
   description: string;
   restaurants?: IRestaurant[];
   isChefOfTheWeek: boolean;
+  isActive: Boolean;
 }
 
 export interface IRestaurant extends Document {
@@ -11,6 +12,7 @@ export interface IRestaurant extends Document {
   image: string;
   chef: IChef;
   dishes: IDish[];
+  isActive: Boolean;
 }
 
 export interface IDish extends Document {
@@ -19,5 +21,5 @@ export interface IDish extends Document {
   ingredients: string[];
   tags: string[];
   price: number;
-  // restaurant: IRestaurant;
+  isActive: Boolean;
 }
