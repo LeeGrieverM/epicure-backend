@@ -15,20 +15,15 @@ app.use(express.json());
 
 app.use("/", apiRouter);
 
-// Serve Swagger UI documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello!");
-});``
-
-
+});
+``;
 
 mongoose
-  .connect(
-    MONGODB_URI,
-    {dbName: 'EPICURE'}
-  )
+  .connect(MONGODB_URI, { dbName: "EPICURE" })
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(PORT, () => {
