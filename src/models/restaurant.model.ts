@@ -6,6 +6,7 @@ const RestaurantShcema: Schema = new mongoose.Schema({
   image: { type: String, required: true },
   chef: { type: Schema.Types.ObjectId, ref: "Chef", required: true },
   dishes: [{ type: Schema.Types.ObjectId, ref: "Dish", required: true }],
+  stars: { type: Number, required: true },
   isActive: { type: Boolean, default: true },
 });
 
