@@ -9,7 +9,7 @@ export async function handleGetAllChefs(page: number = 1, limit: number = 10) {
   const aggregation: Aggregate<Document[]> = Chef.aggregate([
     { $skip: skip },
     { $limit: limit },
-    { $lookup: { from: 'restaurants', localField: 'restaurants', foreignField: '_id', as: 'restaurants' } }
+    { $lookup: { from: 'restaurants', localField: '_id', foreignField: 'chef', as: 'restaurants' } }
   ]);
 
   return aggregation.exec();

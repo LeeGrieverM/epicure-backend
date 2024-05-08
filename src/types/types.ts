@@ -12,14 +12,15 @@ export interface IRestaurant extends Document {
   image: string;
   chef: IChef;
   dishes: IDish[];
+  starts: number;
   isActive: Boolean;
 }
 
 export interface IDish extends Document {
   name: string;
   image: string;
-  ingredients: string[];
-  tags: string[];
+  ingredients: string;
+  icon: string;
   price: number;
   isActive: Boolean;
 }
