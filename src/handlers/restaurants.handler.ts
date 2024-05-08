@@ -21,13 +21,11 @@ export async function handleGetAllRestaurants(
       },
     },
     {
-      $lookup: {
-        from: "dishes",
-        localField: "dishes",
-        foreignField: "_id",
-        as: "dishes",
-      },
+      $addFields: {
+        chef: { $arrayElemAt: ["$chef", 0] }
+      }
     },
+    
   ]);
 
   return aggregation.exec();
