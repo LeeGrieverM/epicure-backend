@@ -14,6 +14,14 @@ export async function handleGetAllRestaurants(
     { $limit: limit },
     {
       $lookup: {
+        from: "dishes",
+        localField: "dishes",
+        foreignField: "_id",
+        as: "dishes",
+      },
+    },
+    {
+      $lookup: {
         from: "chefs",
         localField: "chef",
         foreignField: "_id",
@@ -22,10 +30,9 @@ export async function handleGetAllRestaurants(
     },
     {
       $addFields: {
-        chef: { $arrayElemAt: ["$chef", 0] }
-      }
+        chef: { $arrayElemAt: ["$chef", 0] },
+      },
     },
-    
   ]);
 
   return aggregation.exec();
